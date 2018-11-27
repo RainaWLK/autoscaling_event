@@ -1,0 +1,36 @@
+{
+  "name": "autoscaling_event",
+  "version": "1.0.0",
+  "description": "An event handler for AWS auto scaling",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "SLS_DEBUG=* serverless deploy --aws-profile moxasys -v",
+    "deploy": "SLS_DEBUG=* serverless deploy function -s dev -f init_instance --aws-profile moxasys -v",
+    "release": "SLS_DEBUG=* serverless deploy function -s prod -f init_instance --aws-profile moxasys -v",
+    "package": "serverless package",
+    "destroy": "serverless remove",
+    "start": "SLS_DEBUG=* serverless offline start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RainaWLK/autoscaling_event.git"
+  },
+  "author": "RainaWLK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RainaWLK/autoscaling_event/issues"
+  },
+  "devDependencies": {
+    "serverless": "^1.27.2",
+    "serverless-offline": "^3.23.0",
+    "serverless-plugin-include-dependencies": "^3.1.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "^2.128.0"
+  },
+  "homepage": "https://github.com/RainaWLK/autoscaling_event#readme"
+}
