@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: autoscalingEvent
+service: asEvent
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -30,7 +30,24 @@ provider:
   region: us-west-1
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "route53:ListTagsForResources"
+        - "route53:ChangeResourceRecordSets"
+        - "route53:ListResourceRecordSets"
+        - "route53:GetHealthCheck"
+        - "route53:GetHostedZoneLimit"
+        - "route53:ListTagsForResource"
+      Resource:
+        - "arn:aws:route53:::hostedzone/*"
+        - "arn:aws:route53:::healthcheck/*"
+        - "arn:aws:route53:::delegationset/*"
+    - Effect: "Allow"
+      Action:
+        - "ec2:DescribeInstances"
+      Resource: "*"
+
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
@@ -46,8 +63,9 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  environment:
+    DNS: aaaa.cc
+    HostedZoneId: xxxxxx
 
 # you can add packaging information here
 #package:
@@ -66,9 +84,9 @@ package:
   excludeDevDependencies: true # Config if Serverless should automatically exclude dev dependencies in the deployment package. Defaults to true
 
 functions:
-  init_instance:
-    handler: handler.initInstance
-    name: init_instance
+  initEC2:
+    handler: handler.initEC2
+    name: initEC2
     timeout: 60
     events:
       - cloudwatchEvent:
@@ -77,9 +95,9 @@ functions:
               - "aws.autoscaling"            
             detail-type:
               - "EC2 Instance Launch Successful"
-            detail:
-              AutoScalingGroupName:
-                - "cs-dev-worker"
+#            detail:
+#              AutoScalingGroupName:
+#                - "cs-dev-worker"
 
 # you can add CloudFormation resource templates here
 #resources:
