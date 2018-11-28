@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "create": "SLS_DEBUG=* serverless deploy --aws-profile moxasys -v",
-    "deploy": "SLS_DEBUG=* serverless deploy function -s dev -f init_instance --aws-profile moxasys -v",
-    "release": "SLS_DEBUG=* serverless deploy function -s prod -f init_instance --aws-profile moxasys -v",
+    "deploy": "SLS_DEBUG=* serverless deploy function -s dev -f initEC2 --aws-profile moxasys -v",
+    "release": "SLS_DEBUG=* serverless deploy function -s prod -f initEC2 --aws-profile moxasys -v",
     "package": "serverless package",
     "destroy": "serverless remove",
     "start": "SLS_DEBUG=* serverless offline start"

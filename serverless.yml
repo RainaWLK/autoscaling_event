@@ -47,6 +47,10 @@ provider:
       Action:
         - "ec2:DescribeInstances"
       Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "autoscaling:CompleteLifecycleAction"
+      Resource: "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
 
 #    - Effect: "Allow"
 #      Action:
@@ -95,10 +99,10 @@ functions:
               - "aws.autoscaling"            
             detail-type:
               - "EC2 Instance Launch Successful"
+              - "EC2 Instance-terminate Lifecycle Action"
 #            detail:
 #              AutoScalingGroupName:
 #                - "cs-dev-worker"
-
 # you can add CloudFormation resource templates here
 #resources:
 #    NewResource:
