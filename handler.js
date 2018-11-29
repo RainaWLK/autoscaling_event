@@ -6,25 +6,18 @@ module.exports.initEC2 = async (event, context, callback) => {
   console.log(event);
   console.log('instance id=' + event.detail.EC2InstanceId);
   
-  if(event['detail-type'] === 'EC2 Instance Launch Successful') {
-    try {
+  try {
+    if(event['detail-type'] === 'EC2 Instance-launch Lifecycle Action') {
       await app.newInstance(event.detail.EC2InstanceId);
     }
-    catch(err) {
-      //do nothing
-    }
-  }
-  else if(event['detail-type'] === 'EC2 Instance-terminate Lifecycle Action') {
-    try {
+    else if(event['detail-type'] === 'EC2 Instance-terminate Lifecycle Action') {
       await app.delInstance(event.detail.EC2InstanceId);
     }
-    catch(err) {
-      //do nothing
-    }
-    
-    await autoScaling.completeLifecycle(event);
   }
-  
+  catch(err) {
+    //do nothing
+  }
+  await autoScaling.completeLifecycle(event);
 
   return callback(null, "OK");
 }
