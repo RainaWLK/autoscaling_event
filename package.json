@@ -5,9 +5,9 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create": "SLS_DEBUG=* serverless deploy --aws-profile moxasys -v",
-    "deploy": "SLS_DEBUG=* serverless deploy function -s dev -f initEC2 --aws-profile moxasys -v",
-    "release": "SLS_DEBUG=* serverless deploy function -s prod -f initEC2 --aws-profile moxasys -v",
+    "create": "SLS_DEBUG=* serverless deploy -v",
+    "deploy": "SLS_DEBUG=* serverless deploy function -s dev -f initEC2 -v",
+    "release": "SLS_DEBUG=* serverless deploy function -s prod -f initEC2 -v",
     "package": "serverless package",
     "destroy": "serverless remove",
     "start": "SLS_DEBUG=* serverless offline start"

@@ -17,6 +17,11 @@ service: asEvent
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+custom:
+  HostedZoneId: xxxxx
+  ClusterDNSName: aaa.cc
+  AutoScalingGroupName: abc
+
 plugins:
   - serverless-plugin-include-dependencies
   - serverless-offline
@@ -68,8 +73,8 @@ provider:
 
 # you can define service wide environment variables here
   environment:
-    DNS: aaaa.cc
-    HostedZoneId: xxxxxx
+    DNS: ${self:custom.ClusterDNSName}
+    HostedZoneId: ${self:custom.HostedZoneId}
 
 # you can add packaging information here
 #package:
@@ -100,9 +105,9 @@ functions:
             detail-type:
               - "EC2 Instance Launch Successful"
               - "EC2 Instance-terminate Lifecycle Action"
-#            detail:
-#              AutoScalingGroupName:
-#                - "cs-dev-worker"
+            detail:
+              AutoScalingGroupName:
+                - ${self:custom.AutoScalingGroupName}
 # you can add CloudFormation resource templates here
 #resources:
 #    NewResource:
