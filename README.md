@@ -15,6 +15,10 @@ custom:
 ```
 
 Add Lifecycle Hook in Auto Scaling Group
+```
+  EC2 Instance-terminate Lifecycle Action
+  EC2 Instance-launch Lifecycle Action
+```
 
 first deploy
 ```shell
