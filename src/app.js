@@ -28,23 +28,33 @@ async function describeInstance(EC2InstanceId) {
 }
 
 async function delInstance(EC2InstanceId) {
-  let data = await describeInstance(EC2InstanceId);
+  try {
+    let data = await describeInstance(EC2InstanceId);
 
-  let records = await Route53.getRecord(HostZoneId, RecordSetName);
-  let newRecords = records.filter(e => e.Value !== data.PrivateIpAddress);
-
-  return await Route53.updateRecord(HostZoneId, RecordSetName, newRecords);
+    let records = await Route53.getRecord(HostZoneId, RecordSetName);
+    let newRecords = records.filter(e => e.Value !== data.PrivateIpAddress);
+  
+    return await Route53.updateRecord(HostZoneId, RecordSetName, newRecords);
+  }
+  catch(err) {
+    throw err;
+  }
 }
 
 async function newInstance(EC2InstanceId) {
-  let data = await describeInstance(EC2InstanceId);
+  try {
+    let data = await describeInstance(EC2InstanceId);
   
-  let records = await Route53.getRecord(HostZoneId, RecordSetName);
-  records.push({
-    Value: data.PrivateIpAddress
-  });
-
-  return await Route53.updateRecord(HostZoneId, RecordSetName, records);
+    let records = await Route53.getRecord(HostZoneId, RecordSetName);
+    records.push({
+      Value: data.PrivateIpAddress
+    });
+  
+    return await Route53.updateRecord(HostZoneId, RecordSetName, records);
+  }
+  catch(err) {
+    throw err;
+  }
 }
 
 exports.delInstance = delInstance;

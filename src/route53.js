@@ -11,9 +11,12 @@ async function getRecord(HostZoneId, RecordSetName) {
   try {
     let data = await route53.listResourceRecordSets(params).promise();
 
-    let record = data.ResourceRecordSets.find(e => e.Name === RecordSetName);
-
-    return record.ResourceRecords;
+    let record = data.ResourceRecordSets.find(e => e.Name.indexOf(RecordSetName) === 0);
+    if(record !== undefined) {
+      return record.ResourceRecords;
+    } else {
+      throw null;
+    }
   }
   catch(err) {
     console.log(err, err.stack); // an error occurred
