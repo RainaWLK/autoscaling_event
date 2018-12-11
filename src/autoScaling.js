@@ -5,9 +5,6 @@ var autoscaling = new AWS.AutoScaling({
 });
 
 async function completeLifecycle(event) {
-  event.detail.AutoScalingGroupName
-
-
   var params = {
     AutoScalingGroupName: event.detail.AutoScalingGroupName, 
     LifecycleActionResult: "CONTINUE", 
