@@ -15,9 +15,9 @@ custom:
 ```
 
 Add Lifecycle Hook in Auto Scaling Group
+Note that 'EC2 Instance Launch Successful' may not work if there exist a 'EC2 Instance-launch Lifecycle Action'
 ```
   EC2 Instance-terminate Lifecycle Action
-  EC2 Instance-launch Lifecycle Action
 ```
 
 first deploy
